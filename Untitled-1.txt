@@ -1,0 +1,4 @@
+<video autoplay muted loop playsinline preload="auto" id="bg-video">
+    <source src="anime.mp4" type="video/mp4">
+    <!-- Backup sources if anime.mp4 fails -->
+</video>

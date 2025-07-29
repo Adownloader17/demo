@@ -1,0 +1,851 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    overflow-x: hidden;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    position: relative;
+}
+
+/* Video Background */
+.video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -3;
+    overflow: hidden;
+}
+
+.video-background video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    filter: blur(1px) brightness(0.7) saturate(1.2);
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+}
+
+.video-background video.loaded {
+    opacity: 1;
+}
+
+/* Animated background fallback */
+.animated-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(-45deg, 
+        #ff9a9e 0%, 
+        #fecfef 25%, 
+        #fecfef 50%, 
+        #f093fb 75%, 
+        #f5576c 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    opacity: 1;
+    transition: opacity 2s ease-in-out;
+}
+
+/* Additional animated elements for the background */
+.animated-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.3) 0%, transparent 50%);
+    animation: float 8s ease-in-out infinite;
+}
+
+.animated-bg::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 60% 60%, rgba(255, 255, 255, 0.1) 0%, transparent 40%);
+    animation: pulse 4s ease-in-out infinite;
+}
+
+.video-background video.loaded + .video-overlay + .animated-bg {
+    opacity: 0;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        135deg, 
+        rgba(238, 119, 82, 0.3) 0%, 
+        rgba(231, 60, 126, 0.3) 25%, 
+        rgba(35, 166, 213, 0.3) 50%, 
+        rgba(35, 213, 171, 0.3) 75%,
+        rgba(238, 119, 82, 0.3) 100%
+    );
+    background-size: 400% 400%;
+    animation: gradientShift 20s ease infinite;
+    backdrop-filter: blur(0.5px);
+    z-index: 1;
+}
+
+/* Responsive images and media */
+img, video, iframe {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Improved touch targets for mobile */
+.animated-btn, button, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+/* Gradient animation */
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Header animations */
+.header {
+    text-align: center;
+    padding: 2rem;
+    animation: fadeInDown 1s ease-out;
+    position: relative;
+    z-index: 2;
+}
+
+.header h1 {
+    font-size: 3.5rem;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    animation: bounceIn 1.5s ease-out;
+    margin-bottom: 1rem;
+}
+
+.header p {
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.95);
+    animation: slideInLeft 1s ease-out 0.5s both;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+/* Content container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+/* Card animations */
+.card {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(15px);
+    border-radius: 15px;
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    border: 1px solid rgba(255,255,255,0.3);
+    animation: slideInRight 1s ease-out;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+}
+
+.card h2 {
+    color: white;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.card p {
+    color: rgba(255,255,255,0.95);
+    line-height: 1.6;
+    font-size: 1.1rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+/* Floating elements */
+.floating-elements {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.floating-shape {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+    backdrop-filter: blur(2px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.floating-shape:nth-child(1) {
+    width: 80px;
+    height: 80px;
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.floating-shape:nth-child(2) {
+    width: 60px;
+    height: 60px;
+    top: 60%;
+    right: 10%;
+    animation-delay: 2s;
+}
+
+.floating-shape:nth-child(3) {
+    width: 100px;
+    height: 100px;
+    bottom: 20%;
+    left: 20%;
+    animation-delay: 4s;
+}
+
+.floating-shape:nth-child(4) {
+    width: 40px;
+    height: 40px;
+    top: 10%;
+    right: 30%;
+    animation-delay: 1s;
+}
+
+.floating-shape:nth-child(5) {
+    width: 70px;
+    height: 70px;
+    bottom: 30%;
+    right: 20%;
+    animation-delay: 3s;
+}
+
+/* Button animation */
+.animated-btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    margin: 1rem 0.5rem;
+    transition: all 0.3s ease;
+    animation: pulse 2s infinite;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.animated-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+    animation: none;
+}
+
+/* Skills bar animation */
+.skill {
+    margin: 1rem 0;
+}
+
+.skill-name {
+    color: white;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.skill-bar {
+    background: rgba(255,255,255,0.2);
+    height: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.skill-progress {
+    height: 100%;
+    background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+    border-radius: 5px;
+    animation: fillBar 2s ease-out;
+    transition: width 0.5s ease;
+}
+
+/* Text animation */
+.typewriter {
+    overflow: hidden;
+    border-right: .15em solid orange;
+    white-space: nowrap;
+    margin: 0 auto;
+    letter-spacing: .15em;
+    animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+    display: inline-block;
+}
+
+/* Keyframe animations */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translate3d(0, -100%, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes bounceIn {
+    0%, 20%, 40%, 60%, 80%, 100% {
+        transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    }
+    0% {
+        opacity: 0;
+        transform: scale3d(.3, .3, .3);
+    }
+    20% {
+        transform: scale3d(1.1, 1.1, 1.1);
+    }
+    40% {
+        transform: scale3d(.9, .9, .9);
+    }
+    60% {
+        opacity: 1;
+        transform: scale3d(1.03, 1.03, 1.03);
+    }
+    80% {
+        transform: scale3d(.97, .97, .97);
+    }
+    100% {
+        opacity: 1;
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translate3d(-100%, 0, 0);
+        visibility: visible;
+    }
+    to {
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translate3d(100%, 0, 0);
+        visibility: visible;
+    }
+    to {
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes fillBar {
+    0% {
+        width: 0%;
+    }
+}
+
+@keyframes typing {
+    from {
+        width: 0
+    }
+    to {
+        width: 100%
+    }
+}
+
+@keyframes blink-caret {
+    from, to {
+        border-color: transparent
+    }
+    50% {
+        border-color: orange;
+    }
+}
+
+/* Responsive design */
+/* Large desktops and up (1200px+) */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1400px;
+        padding: 3rem;
+    }
+    
+    .header h1 {
+        font-size: 4rem;
+    }
+    
+    .card {
+        padding: 3rem;
+        margin: 3rem 0;
+    }
+    
+    .floating-shape:nth-child(1) {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .floating-shape:nth-child(2) {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .floating-shape:nth-child(3) {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+/* Desktop (992px to 1199px) */
+@media (max-width: 1199px) and (min-width: 992px) {
+    .container {
+        max-width: 1140px;
+        padding: 2.5rem;
+    }
+    
+    .header h1 {
+        font-size: 3.8rem;
+    }
+    
+    .card {
+        padding: 2.5rem;
+        margin: 2.5rem 0;
+    }
+}
+
+/* Tablets (768px to 991px) */
+@media (max-width: 991px) and (min-width: 768px) {
+    .container {
+        max-width: 100%;
+        padding: 2rem;
+    }
+    
+    .header {
+        padding: 1.5rem;
+    }
+    
+    .header h1 {
+        font-size: 3rem;
+    }
+    
+    .header p {
+        font-size: 1.1rem;
+    }
+    
+    .card {
+        padding: 2rem;
+        margin: 1.5rem 0;
+    }
+    
+    .card h2 {
+        font-size: 1.8rem;
+    }
+    
+    .card p {
+        font-size: 1rem;
+    }
+    
+    .animated-btn {
+        padding: 10px 25px;
+        margin: 0.8rem 0.3rem;
+        font-size: 0.9rem;
+    }
+    
+    /* Adjust floating shapes for tablets */
+    .floating-shape:nth-child(1) {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .floating-shape:nth-child(2) {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .floating-shape:nth-child(3) {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .floating-shape:nth-child(4) {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .floating-shape:nth-child(5) {
+        width: 55px;
+        height: 55px;
+    }
+    
+    /* Optimize video for tablets */
+    .video-background video {
+        filter: blur(2px) brightness(0.6) saturate(1.1);
+    }
+}
+
+/* Mobile devices (576px to 767px) */
+@media (max-width: 767px) and (min-width: 576px) {
+    .container {
+        padding: 1.5rem;
+    }
+    
+    .header {
+        padding: 1.5rem 1rem;
+    }
+    
+    .header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .header p {
+        font-size: 1rem;
+    }
+    
+    .typewriter {
+        font-size: 1rem;
+        letter-spacing: 0.1em;
+    }
+    
+    .card {
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        border-radius: 12px;
+    }
+    
+    .card h2 {
+        font-size: 1.6rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .card p {
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+    
+    .animated-btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin: 0.8rem 0;
+        padding: 12px;
+        font-size: 0.9rem;
+    }
+    
+    .skill-name {
+        font-size: 0.9rem;
+    }
+    
+    .skill-bar {
+        height: 8px;
+    }
+    
+    /* Reduce floating shapes for mobile */
+    .floating-shape:nth-child(1) {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .floating-shape:nth-child(2) {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .floating-shape:nth-child(3) {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .floating-shape:nth-child(4) {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .floating-shape:nth-child(5) {
+        width: 30px;
+        height: 30px;
+    }
+    
+    /* Disable video on mobile for performance */
+    .video-background {
+        display: none;
+    }
+    
+    body {
+        background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+        background-size: 400% 400%;
+        animation: gradientShift 15s ease infinite;
+    }
+}
+
+/* Small mobile devices (up to 575px) */
+@media (max-width: 575px) {
+    body {
+        font-size: 14px;
+    }
+    
+    .container {
+        padding: 1rem;
+    }
+    
+    .header {
+        padding: 1rem 0.5rem;
+    }
+    
+    .header h1 {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+        line-height: 1.2;
+    }
+    
+    .header p {
+        font-size: 0.9rem;
+    }
+    
+    .typewriter {
+        font-size: 0.9rem;
+        letter-spacing: 0.05em;
+        animation: typing 4s steps(30, end), blink-caret .75s step-end infinite;
+    }
+    
+    .card {
+        padding: 1rem;
+        margin: 1rem 0;
+        border-radius: 10px;
+    }
+    
+    .card h2 {
+        font-size: 1.4rem;
+        margin-bottom: 0.6rem;
+    }
+    
+    .card p {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+    
+    .animated-btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin: 0.6rem 0;
+        padding: 10px;
+        font-size: 0.85rem;
+        border-radius: 20px;
+    }
+    
+    .skill {
+        margin: 0.8rem 0;
+    }
+    
+    .skill-name {
+        font-size: 0.85rem;
+        margin-bottom: 0.4rem;
+    }
+    
+    .skill-bar {
+        height: 6px;
+        border-radius: 3px;
+    }
+    
+    .skill-progress {
+        border-radius: 3px;
+    }
+    
+    /* Hide some floating shapes on very small screens */
+    .floating-shape:nth-child(4),
+    .floating-shape:nth-child(5) {
+        display: none;
+    }
+    
+    .floating-shape:nth-child(1) {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .floating-shape:nth-child(2) {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .floating-shape:nth-child(3) {
+        width: 35px;
+        height: 35px;
+    }
+    
+    /* Disable video on small mobile */
+    .video-background {
+        display: none;
+    }
+}
+
+/* Extra small devices (portrait phones, less than 480px) */
+@media (max-width: 479px) {
+    .header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .header p {
+        font-size: 0.8rem;
+    }
+    
+    .typewriter {
+        font-size: 0.8rem;
+    }
+    
+    .card {
+        padding: 0.8rem;
+        margin: 0.8rem 0;
+    }
+    
+    .card h2 {
+        font-size: 1.2rem;
+    }
+    
+    .card p {
+        font-size: 0.85rem;
+    }
+    
+    .animated-btn {
+        padding: 8px;
+        font-size: 0.8rem;
+    }
+    
+    /* Disable video completely */
+    .video-background {
+        display: none;
+    }
+}
+
+/* Landscape orientation adjustments */
+@media (max-height: 500px) and (orientation: landscape) {
+    .header {
+        padding: 1rem;
+    }
+    
+    .header h1 {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .container {
+        padding: 1rem;
+    }
+    
+    .card {
+        padding: 1rem;
+        margin: 1rem 0;
+    }
+    
+    .floating-shape {
+        animation-duration: 4s;
+    }
+    
+    /* Disable video in landscape mobile */
+    .video-background {
+        display: none;
+    }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .card {
+        box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+    
+    .animated-btn {
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+}
+
+/* Print styles */
+@media print {
+    .floating-elements,
+    .animated-btn,
+    .video-background {
+        display: none;
+    }
+    
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    
+    .card {
+        background: white !important;
+        border: 1px solid #ccc;
+        box-shadow: none;
+        page-break-inside: avoid;
+    }
+    
+    .header h1,
+    .card h2,
+    .card p,
+    .skill-name {
+        color: black !important;
+    }
+}
